@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "lostcity:block/golemmask"},
-    "facing=south": { "model": "lostcity:block/golemmask", "y": 180},
-    "facing=east": { "model": "lostcity:block/golemmask", "y": 90},
-    "facing=west": { "model": "lostcity:block/golemmask", "y": 270}
-  }
-}

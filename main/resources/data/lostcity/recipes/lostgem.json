@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "xxx",
+    "x#x",
+    "xxx"
+  ],
+  "key": {
+    "x": {
+      "item": "lostcity:alchemicaldust"
+    },
+    "#": {
+      "item": "lostcity:eldersoul"
+    }
+  },
+  "result": {
+    "item": "lostcity:lostgem"
+  }
+}

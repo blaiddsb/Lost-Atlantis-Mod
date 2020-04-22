@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "lostcity:block/crystalliser"
+    },
+    "facing=south": {
+      "model": "lostcity:block/crystalliser",
+      "y": 180
+    },
+    "facing=east": {
+      "model": "lostcity:block/crystalliser",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "lostcity:block/crystalliser",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "lostcity:block/crystalliser",
+      "x": -90
+    },
+    "facing=down": {
+      "model": "lostcity:block/crystalliser",
+      "y": 90
+    }
+  }
+
+}

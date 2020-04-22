@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "particles": "lostcity:item/aerdust",
+    "layer0": "lostcity:item/eldersoul"
+  }
+}

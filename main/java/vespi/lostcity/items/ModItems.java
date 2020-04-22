@@ -12,7 +12,6 @@ public class ModItems {
 	@ObjectHolder("lostcity:golemtotem")
 	public static GolemTotemItem GOLEMTOTEM;
 	
-	
 	public static GlyphItem GLYPHITEM;
 	
 	@ObjectHolder("lostcity:speedglyph")
@@ -23,4 +22,26 @@ public class ModItems {
 	
 	@ObjectHolder("lostcity:attackglyph")
 	public static AttackGlyphItem ATTACKGLYPH;
+
+    @ObjectHolder("lostcity:alchemicaldust")
+    public static AlchemicalDust ALCHEMICALDUST;
+
+    @ObjectHolder("lostcity:lostgem")
+    public static LostGem LOSTGEM;
+
+    @ObjectHolder("lostcity:eldersoul")
+    public static ElderSoul ELDERSOUL;
+
+    @ObjectHolder("lostcity:relichammer")
+    public static RelicHammer RELICHAMMER;
+
+    @ObjectHolder("lostcity:artifactshard")
+    public static  ArtifactShard ARTIFACTSHARD;
+
+    @ObjectHolder("lostcity:relicpickaxe")
+    public static RelicPickaxe RELICPICKAXE;
+    @ObjectHolder("lostcity:relicaxe")
+    public static RelicAxe RELICAXE;
+    @ObjectHolder("lostcity:relicshovel")
+    public static RelicShovel RELICSHOVEL;
 }

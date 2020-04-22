@@ -1,16 +1,29 @@
 {
-	"block.lostcity.artifactblock": "Artifact Block",	
-	"block.lostcity.golemmask": "Golem Mask",	
+    "block.lostcity.artifactblock": "Artifact Block",
+    "block.lostcity.crystalliser": "Crystalliser",
+    "block.lostcity.lostglass": "Lost Glass",
+    "block.lostcity.ostrumeore": "Ostrum Ore",
+    
+    "item.lostcity.alchemicaldust": "Alchemical Dust",
+    "item.lostcity.lostgem": "Lost Gem",
+    "item.lostcity.eldersoul":"Elder Soul",
+    "item.lostcity.relichammer":"Relic Hammer",
+    "item.lostcity.relicpickaxe": "Relic Pickaxe",
+    "item.lostcity.artifactshard": "Artifact Shard",
+    "item.lostcity.relicshovel": "Relic Shovel",
+    "item.lostcity.relicaxe": "Relic Axe",
+    
 	"item.lostcity.heartgem": "Heart Gem",
 	"item.lostcity.speedglyph": "Speed Glyph",
 	"item.lostcity.healthglyph": "Health Glyph",
 	"item.lostcity.attackglyph": "Attack Glyph",
-	"entity.lostcity.lessergolem": "Lesser Golem",
 	"item.lostcity.lessergolemegg": "Lesser Golem Egg",
 	"item.lostcity.golemtotem": "Golem Totem",
-	"entity.lostcity.lostshark": "Lost Shark",
 	"item.lostcity.sharktotem": "Shark Totem",
 	
+	"entity.lostcity.lostshark": "Lost Shark",
+	"entity.lostcity.lessergolem": "Lesser Golem",
+    
 	"_comment": "Creative Tabs",
 	"itemGroup.lostcity": "Lost City"
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+
+    "X": {
+      "item": "lostcity:artifactshard"
+    }
+  },
+  "result": {
+    "item": "lostcity:artifactblock"
+  }
+}
