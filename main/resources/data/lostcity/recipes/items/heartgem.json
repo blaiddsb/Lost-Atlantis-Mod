@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"xbx",
+		" x "
+	],
+	"key": {
+		"x": {
+			"item": "lostcity:artifactblock"
+		},
+		"b": {
+			"tag": "forge:dyes/blue"
+		}
+	},
+	"result": {
+		"item": "lostcity:heartgem"
+	}
+}

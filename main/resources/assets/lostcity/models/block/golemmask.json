@@ -1,0 +1,12 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "particle": "lostcity:block/artifactblock",
+        "down": "lostcity:block/artifactblock",
+        "up": "lostcity:block/artifactblock",
+        "east": "lostcity:block/artifactblock",
+        "west": "lostcity:block/artifactblock",
+        "north": "lostcity:block/golemmask",
+        "south": "lostcity:block/artifactblock"
+    }
+}

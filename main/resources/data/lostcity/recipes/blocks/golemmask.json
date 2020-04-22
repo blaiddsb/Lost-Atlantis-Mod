@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"xxx",
+		"xbx",
+		"xxx"
+	],
+	"key": {
+		"x": {
+			"item": "lostcity:artifactblock"
+		},
+		"b": {
+			"item": "minecraft:nether_star"
+		}
+	},
+	"result": {
+		"item": "lostcity:golemmask"
+	}
+}
