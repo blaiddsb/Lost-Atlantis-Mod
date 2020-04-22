@@ -1,7 +1,8 @@
 package vespi.lostcity;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -19,7 +20,12 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vespi.lostcity.blocks.*;
+import vespi.lostcity.entities.LesserGolemEntity;
+import vespi.lostcity.entities.LostSharkEntity;
 import vespi.lostcity.items.*;
+import vespi.lostcity.items.glyphs.AttackGlyphItem;
+import vespi.lostcity.items.glyphs.HealthGlyphItem;
+import vespi.lostcity.items.glyphs.SpeedGlyphItem;
 import vespi.lostcity.setup.*;
 
 import java.awt.*;
@@ -30,11 +36,14 @@ import static vespi.lostcity.blocks.ModBlocks.*;
 @Mod("lostcity")
 public class LostCity {
     public static final String MODID = "lostcity";
-
-
+    
     private static final Logger LOGGER = LogManager.getLogger();
     public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
     public static ModSetup setup = new ModSetup();
+    
+    // Entity builders 
+    public static EntityType<?> lesserGolemBuilder;
+    public static EntityType<?> lostSharkBuilder;
 
     public LostCity() {
         // Register the setup method for modloading
