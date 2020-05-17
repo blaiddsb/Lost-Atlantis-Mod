@@ -1,5 +1,5 @@
-package vespi.lostcity.dimensions;
-import net.minecraft.block.Block;
+package vespi.lostcity.dimension;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
@@ -10,26 +10,24 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class LostBiomeProvider extends BiomeProvider {
+public class TutorialBiomeProvider extends BiomeProvider {
     private final Biome biome;
-    private static final List<Biome> SPAWN = Collections.singletonList(Biomes.OCEAN);
+    private static final List<Biome> SPAWN = Collections.singletonList(Biomes.DEEP_WARM_OCEAN);
 
-    public LostBiomeProvider(Biome biome) {
-       this.biome=Biomes.OCEAN;
+    public TutorialBiomeProvider() {
+        biome = Biomes.DEEP_WARM_OCEAN;
     }
-
 
     @Override
     public Biome getBiome(int x, int y) {
-        return this.biome;
+        return biome;
     }
 
     @Override
     public Biome[] getBiomes(int x, int z, int width, int length, boolean cacheFlag) {
-         Biome[] biomes =  new Biome[width * length];
-         Arrays.fill(biomes,biome);
-         return biomes;
-
+        Biome[] biomes = new Biome[width * length];
+        Arrays.fill(biomes, biome);
+        return biomes;
     }
 
     @Override
@@ -40,7 +38,7 @@ public class LostBiomeProvider extends BiomeProvider {
     @Nullable
     @Override
     public BlockPos findBiomePosition(int x, int z, int range, List<Biome> biomes, Random random) {
-        return  new BlockPos(x,65,z);
+        return new BlockPos(x, 65, z);
     }
 
     @Override
@@ -56,11 +54,4 @@ public class LostBiomeProvider extends BiomeProvider {
 
         return topBlocksCache;
     }
-
-    @Override
-    public List<Biome> getBiomesToSpawnIn() {
-        return SPAWN;
-    }
 }
-
-

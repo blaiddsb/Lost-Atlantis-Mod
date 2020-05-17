@@ -14,12 +14,17 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import vespi.lostcity.blocks.*;
+import vespi.lostcity.dimension.ModDimensions;
+import vespi.lostcity.dimension.TutorialModDimension;
 import vespi.lostcity.entities.LesserGolemEntity;
 import vespi.lostcity.entities.LostSharkEntity;
 import vespi.lostcity.items.*;
@@ -27,8 +32,6 @@ import vespi.lostcity.items.glyphs.AttackGlyphItem;
 import vespi.lostcity.items.glyphs.HealthGlyphItem;
 import vespi.lostcity.items.glyphs.SpeedGlyphItem;
 import vespi.lostcity.setup.*;
-
-import java.awt.*;
 
 import static vespi.lostcity.blocks.ModBlocks.*;
 
@@ -61,6 +64,9 @@ public class LostCity {
         	.size(1,1)
         	.setShouldReceiveVelocityUpdates(false)
         	.build("lessergolementity").setRegistryName("lostcity", "lessergolem");
+
+
+        Registration.init();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -70,6 +76,7 @@ public class LostCity {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new ArtifactBlock());
@@ -88,7 +95,6 @@ public class LostCity {
             event.getRegistry().register(new BlockItem(LOSTGLASS,new Item.Properties().group(ModSetup.itemGroup)).setRegistryName("lostglass"));
             event.getRegistry().register(new BlockItem(OSTRUMORE, new Item.Properties().group(ModSetup.itemGroup)).setRegistryName("ostrumore"));
 
-
             //items
             event.getRegistry().register(new AlchemicalDust());
             event.getRegistry().register(new LostGem());
@@ -104,7 +110,7 @@ public class LostCity {
             event.getRegistry().register(new SpeedGlyphItem());
             event.getRegistry().register(new HealthGlyphItem());
             event.getRegistry().register(new AttackGlyphItem());
-            
+
             // register spawn objects
             event.getRegistry().register(new GolemTotemItem(lostSharkBuilder).setRegistryName("sharktotem"));
             event.getRegistry().register(new GolemTotemItem(lesserGolemBuilder).setRegistryName("golemtotem"));
@@ -115,15 +121,13 @@ public class LostCity {
         public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
             // this is how to build a registry for a tile entity.
             event.getRegistry().register(TileEntityType.Builder.create(CrystalliserTile::new, ModBlocks.CRYSTALLISER).build(null).setRegistryName("lostcity", "crystalliser"));
-
         }
 
         @SubscribeEvent
-        public static void registerModDimensions(final RegistryEvent.Register<ModDimension> event) {
-            //event.getRegistry().register(new ModLostDimension().setRegistryName(DIMENSION_ID));
-
+        public static void onDimensionRegistry(final RegistryEvent.Register<ModDimension> event) {
+            event.getRegistry().register(new TutorialModDimension().setRegistryName(ModDimensions.DIMENSION_ID));
         }
-        
+
         @SubscribeEvent
         public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> event){
             event.getRegistry().register( IForgeContainerType.create(((windowId, inv, data) -> {
