@@ -12,10 +12,10 @@ import java.util.*;
 
 public class TutorialBiomeProvider extends BiomeProvider {
     private final Biome biome;
-    private static final List<Biome> SPAWN = Collections.singletonList(Biomes.DEEP_WARM_OCEAN);
+    private static final List<Biome> SPAWN = Arrays.asList(Biomes.WARM_OCEAN, Biomes.OCEAN);
 
     public TutorialBiomeProvider() {
-        biome = Biomes.DEEP_WARM_OCEAN;
+        biome = Biomes.WARM_OCEAN;
     }
 
     @Override

@@ -10,16 +10,18 @@ import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap;
+import vespi.lostcity.tools.SimplexNoise;
+
+import java.util.Random;
 
 public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerator.Config> {
-
     public TutorialChunkGenerator(IWorld world, BiomeProvider provider) {
         super(world, provider, Config.createDefault());
     }
 
     @Override
     public int getSeaLevel() {
-        return 200;
+        return 100;
     }
 
     @Override
@@ -30,7 +32,9 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
     @Override
     public void generateSurface(IChunk chunk) {
         BlockState bedrock = Blocks.BEDROCK.getDefaultState();
-        BlockState stone = Blocks.WATER.getDefaultState();
+        BlockState water = Blocks.WATER.getDefaultState();
+        BlockState sand = Blocks.SAND.getDefaultState();
+        BlockState stone = Blocks.STONE.getDefaultState();
         ChunkPos chunkpos = chunk.getPos();
 
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
@@ -40,20 +44,27 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
 
         for (x = 0; x < 16; x++) {
             for (z = 0; z < 16; z++) {
-                chunk.setBlockState(pos.setPos(x, 0, z), bedrock, false);
-            }
-        }
-
-        for (x = 0; x < 16; x++) {
-            for (z = 0; z < 16; z++) {
                 int realx = chunkpos.x * 16 + x;
                 int realz = chunkpos.z * 16 + z;
-                int height = (int) (65 + Math.sin(realx / 20.0f)*10 + Math.cos(realz / 20.0f)*10);
-                for (int y = 1 ; y < height ; y++) {
-                    chunk.setBlockState(pos.setPos(x, y, z), stone, false);
+                float noise = (float) SimplexNoise.noise(realx / 5, realz / 5) * 10;
+                int height = 40 + (int) noise;
+                for (int y = 0 ; y < getSeaLevel() ; y++) {
+                    if (y == 0){
+                        chunk.setBlockState(pos.setPos(x, y, z), bedrock, false);
+                    } else if (y <= height) {
+                        chunk.setBlockState(pos.setPos(x, y, z), stone, false);
+                    } else if (y == height + 1) {
+                        chunk.setBlockState(pos.setPos(x, y, z), sand, false);
+                    } else {
+                        chunk.setBlockState(pos.setPos(x, y, z), water, false);
+                    }
                 }
             }
         }
+    }
+
+    float lerp(float a0, float a1, float w) {
+        return (1.0f - w)*a0 + w*a1;
     }
 
     @Override
@@ -68,8 +79,8 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
     public static class Config extends GenerationSettings {
         public static Config createDefault() {
             Config config = new Config();
-            config.setDefaultBlock(Blocks.DIAMOND_BLOCK.getDefaultState());
-            config.setDefaultFluid(Blocks.LAVA.getDefaultState());
+//            config.setDefaultBlock(Blocks.DIAMOND_BLOCK.getDefaultState());
+//            config.setDefaultFluid(Blocks.LAVA.getDefaultState());
             return config;
         }
     }
