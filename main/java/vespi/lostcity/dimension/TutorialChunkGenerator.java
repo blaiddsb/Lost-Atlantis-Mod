@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -26,7 +27,7 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
 
     @Override
     public int getGroundHeight() {
-        return world.getSeaLevel()+1;
+        return 40;
     }
 
     @Override
@@ -41,21 +42,36 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
 
         int x;
         int z;
+        int height_offset;
+        int flatness;
+
+        if (chunk.getBiome(pos) == Biomes.WARM_OCEAN) {
+            height_offset = 80;
+            flatness = 5;
+        } else if (chunk.getBiome(pos) == Biomes.DEEP_LUKEWARM_OCEAN) {
+            height_offset = 40;
+            flatness = 10;
+        } else {
+            height_offset = this.getGroundHeight();
+            flatness = 10;
+        }
 
         for (x = 0; x < 16; x++) {
             for (z = 0; z < 16; z++) {
                 int realx = chunkpos.x * 16 + x;
                 int realz = chunkpos.z * 16 + z;
-                float noise = (float) SimplexNoise.noise(realx / 5, realz / 5) * 10;
-                int height = 40 + (int) noise;
-                for (int y = 0 ; y < getSeaLevel() ; y++) {
+
+                float noise0 = (float) SimplexNoise.noise((float)realx/100, (float)realz/100) * flatness;
+                int height = height_offset + (int) noise0;
+
+                for (int y = 0 ; y < 255 ; y++) {
                     if (y == 0){
                         chunk.setBlockState(pos.setPos(x, y, z), bedrock, false);
                     } else if (y <= height) {
                         chunk.setBlockState(pos.setPos(x, y, z), stone, false);
                     } else if (y == height + 1) {
                         chunk.setBlockState(pos.setPos(x, y, z), sand, false);
-                    } else {
+                    } else if (y <= getSeaLevel()) {
                         chunk.setBlockState(pos.setPos(x, y, z), water, false);
                     }
                 }
@@ -63,8 +79,8 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
         }
     }
 
-    float lerp(float a0, float a1, float w) {
-        return (1.0f - w)*a0 + w*a1;
+    float gradient(float p1, float p2, float p0, int pC) {
+        return p2 + (p1 - p2 / pC) * p0;
     }
 
     @Override
