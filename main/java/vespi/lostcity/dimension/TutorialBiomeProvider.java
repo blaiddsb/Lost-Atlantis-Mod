@@ -19,8 +19,14 @@ public class TutorialBiomeProvider extends BiomeProvider {
     }
 
     @Override
+    public Biome getBiome(BlockPos pos) {
+
+        return this.getBiome(pos.getX(), pos.getZ());
+    }
+
+    @Override
     public Biome getBiome(int x, int y) {
-        float noise = (float) SimplexNoise.noise((float)x/100, (float)y/100);
+        float noise = (float) SimplexNoise.noise((float)x/40, (float)y/40);
         if (noise >= 0) {
             return Biomes.WARM_OCEAN;
         } else {
@@ -33,7 +39,7 @@ public class TutorialBiomeProvider extends BiomeProvider {
         Biome[] biomes = new Biome[width * length];
         for (int bx = 0; bx < width; bx++){
             for (int bz = 0; bz < length; bz++){
-                biomes[bx + bz * width] = getBiome(bx, bz);
+                biomes[bx + bz * width] = getBiome(x/16, z/16);
             }
         }
         return biomes;
@@ -41,15 +47,7 @@ public class TutorialBiomeProvider extends BiomeProvider {
 
     @Override
     public Set<Biome> getBiomesInSquare(int centerX, int centerZ, int sideLength) {
-        int i = centerX - sideLength >> 2;
-        int j = centerZ - sideLength >> 2;
-        int k = centerX + sideLength >> 2;
-        int l = centerZ + sideLength >> 2;
-        int i1 = k - i + 1;
-        int j1 = l - j + 1;
-        Set<Biome> set = Sets.newHashSet();
-        Collections.addAll(set, this.getBiomes(i, j, i1, j1, false));
-        return set;
+        return Collections.singleton(this.getBiome(centerX, centerZ));
     }
 
     @Nullable

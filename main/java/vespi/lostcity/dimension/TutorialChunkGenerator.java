@@ -5,12 +5,14 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.gen.WorldGenRegion;
 import vespi.lostcity.tools.SimplexNoise;
 
 import java.util.Random;
@@ -42,17 +44,14 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
 
         int x;
         int z;
-        int height_offset;
+        int height_offset = 90;
         int flatness;
 
-        if (chunk.getBiome(pos) == Biomes.WARM_OCEAN) {
-            height_offset = 80;
+        if (this.biomeProvider.getBiome(chunkpos.x, chunkpos.z) == Biomes.WARM_OCEAN) {
             flatness = 5;
-        } else if (chunk.getBiome(pos) == Biomes.DEEP_LUKEWARM_OCEAN) {
-            height_offset = 40;
+        } else if (this.biomeProvider.getBiome(chunkpos.x, chunkpos.z) == Biomes.DEEP_LUKEWARM_OCEAN) {
             flatness = 10;
         } else {
-            height_offset = this.getGroundHeight();
             flatness = 10;
         }
 
@@ -61,8 +60,9 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
                 int realx = chunkpos.x * 16 + x;
                 int realz = chunkpos.z * 16 + z;
 
+                float noise = (float) SimplexNoise.noise((float)chunkpos.x/40, (float)chunkpos.z/40);
                 float noise0 = (float) SimplexNoise.noise((float)realx/100, (float)realz/100) * flatness;
-                int height = height_offset + (int) noise0;
+                int height = height_offset + (int) noise0 + (int) noise;
 
                 for (int y = 0 ; y < 255 ; y++) {
                     if (y == 0){
@@ -79,10 +79,6 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
         }
     }
 
-    float gradient(float p1, float p2, float p0, int pC) {
-        return p2 + (p1 - p2 / pC) * p0;
-    }
-
     @Override
     public void makeBase(IWorld worldIn, IChunk chunkIn) {
     }
@@ -95,8 +91,6 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
     public static class Config extends GenerationSettings {
         public static Config createDefault() {
             Config config = new Config();
-//            config.setDefaultBlock(Blocks.DIAMOND_BLOCK.getDefaultState());
-//            config.setDefaultFluid(Blocks.LAVA.getDefaultState());
             return config;
         }
     }
