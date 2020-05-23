@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import vespi.lostcity.LostCity;
+import vespi.lostcity.dimension.TutorialDimension;
 import vespi.lostcity.entities.LesserGolemEntity;
 
 public class GolemTotemItem extends Item {
@@ -52,7 +53,7 @@ public class GolemTotemItem extends Item {
 	     BlockPos blockpos = context.getPos();
 	     Direction direction = context.getFace();
 	     BlockState blockstate = world.getBlockState(blockpos);
-	
+
 	     BlockPos blockpos1;
 	     if (blockstate.getCollisionShape(world, blockpos).isEmpty()) {
 	        blockpos1 = blockpos;

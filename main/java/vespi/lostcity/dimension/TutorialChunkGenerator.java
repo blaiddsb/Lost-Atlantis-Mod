@@ -44,14 +44,17 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
 
         int x;
         int z;
-        int height_offset = 90;
         int flatness;
+        int height_offset;
 
         if (this.biomeProvider.getBiome(chunkpos.x, chunkpos.z) == Biomes.WARM_OCEAN) {
+            height_offset = 90;
             flatness = 5;
         } else if (this.biomeProvider.getBiome(chunkpos.x, chunkpos.z) == Biomes.DEEP_LUKEWARM_OCEAN) {
+            height_offset = 40;
             flatness = 10;
         } else {
+            height_offset = 100;
             flatness = 10;
         }
 
@@ -60,9 +63,9 @@ public class TutorialChunkGenerator extends ChunkGenerator<TutorialChunkGenerato
                 int realx = chunkpos.x * 16 + x;
                 int realz = chunkpos.z * 16 + z;
 
-                float noise = (float) SimplexNoise.noise((float)chunkpos.x/40, (float)chunkpos.z/40);
+                //float noise = (float) SimplexNoise.noise((float)chunkpos.x/40, (float)chunkpos.z/40);
                 float noise0 = (float) SimplexNoise.noise((float)realx/100, (float)realz/100) * flatness;
-                int height = height_offset + (int) noise0 + (int) noise;
+                int height = height_offset + (int) noise0;
 
                 for (int y = 0 ; y < 255 ; y++) {
                     if (y == 0){
